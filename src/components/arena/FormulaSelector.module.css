@@ -1,0 +1,242 @@
+.selector {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.header {
+  padding: 14px 16px 8px;
+  border-bottom: 0.5px solid var(--border);
+}
+
+.title {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.folderList {
+  flex: 1;
+  overflow-y: auto;
+  padding: 6px 0;
+}
+
+/* Base Folder CSS Adapted from Sidebar */
+.folderWrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.folderRoot, .subfolder {
+  display: flex;
+  align-items: center;
+  padding: 8px 16px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.15s ease;
+  min-height: 38px;
+}
+
+.folderRoot:hover, .subfolder:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.subfolderContainer {
+  overflow: hidden;
+}
+
+.chevron {
+  font-size: 9px;
+  color: var(--text-muted);
+  width: 10px;
+  flex-shrink: 0;
+  transition: transform 0.15s;
+}
+
+.chevron.expanded {
+  transform: rotate(90deg);
+}
+
+.chevronSpacer {
+  width: 10px;
+  flex-shrink: 0;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-right: 8px;
+}
+
+.folderName {
+  font-size: 13.5px;
+  color: var(--text-secondary);
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.examTag {
+  font-size: 9px;
+  font-weight: 700;
+  border: 1px solid currentColor;
+  padding: 1px 4px;
+  border-radius: 3px;
+  letter-spacing: 0.05em;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.subLine {
+  position: absolute;
+  left: 12px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--border);
+  opacity: 0.6;
+}
+
+/* Formula Row */
+.formulaRow {
+  display: flex;
+  align-items: center;
+  padding: 8px 16px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.15s ease;
+  min-height: 34px;
+}
+
+.formulaRow:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.formulaRow.selected {
+  background: var(--accent-subtle);
+}
+
+.formulaRow.selected::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--accent);
+}
+
+.formulaIconTiny {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  margin-right: 6px;
+  margin-left: 2px;
+}
+
+.formulaTitle {
+  font-size: 13px;
+  color: var(--text-muted);
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.formulaRow.selected .formulaTitle {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+/* Other controls */
+.empty {
+  padding: 1rem;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.controls {
+  border-top: 0.5px solid var(--border);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.selectedLabel {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.selectedName {
+  font-size: 13px;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.fieldLabel {
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.input {
+  background: var(--bg-elevated);
+  border: 0.5px solid var(--border);
+  color: var(--text-primary);
+  padding: 6px 8px;
+  font-size: 12px;
+  font-family: var(--font-main);
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.input:focus {
+  border-color: var(--accent);
+}
+
+.mixToggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.startBtn {
+  background: var(--accent);
+  border: none;
+  color: white;
+  padding: 9px;
+  font-size: 13px;
+  font-family: var(--font-main);
+  cursor: pointer;
+  transition: background 0.15s;
+  letter-spacing: 0.02em;
+}
+
+.startBtn:hover {
+  background: var(--accent-hover);
+}
+
+.startBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
