@@ -2,54 +2,37 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { getDotColor } from '@/lib/constants'
+import { getChildren as getChildFolders, getRootExamContext, getFormulasForFolder as getFormulasFor } from '@/lib/folders'
 import styles from './FormulaSelector.module.css'
-
-const EXAM_COLORS = {
-  CAT: '#8b7dff',
-  JEE: '#05f2c7',
-  GATE: '#ffd166',
-  GRE: '#ff6b6b',
-  GMAT: '#3a86ff',
-}
-
-function getDotColor(examContext) {
-  if (!examContext) return 'var(--text-muted)'
-  const key = examContext.toUpperCase()
-  return EXAM_COLORS[key] || 'var(--accent)'
-}
 
 export default function FormulaSelector({ folders, formulas, onStartQuiz, loading, selectedFormula }) {
   const [selectedId, setSelectedId] = useState(null)
   const [examContext, setExamContext] = useState('')
   const [autoMix, setAutoMix] = useState(false)
+  const [mode, setMode] = useState('quick')
   const [expandedFolders, setExpandedFolders] = useState({})
 
   const rootFolders = folders.filter(f => f.parent_id === null)
 
   function getFormulasForFolder(folderId) {
-    return formulas.filter(f => f.folder_id === folderId)
+    return getFormulasFor(folderId, formulas)
   }
 
   function getChildren(parentId) {
-    return folders.filter(f => f.parent_id === parentId)
-  }
-
-  function getRootExamContext(folder) {
-    if (!folder.parent_id) return folder.exam_context
-    const parent = folders.find(f => f.id === folder.parent_id)
-    return parent ? getRootExamContext(parent) : null
+    return getChildFolders(parentId, folders)
   }
 
   function handleSelectFormula(formula, folder) {
     setSelectedId(formula.id)
-    const exam = getRootExamContext(folder)
+    const exam = getRootExamContext(folder, folders)
     if (exam) setExamContext(exam)
   }
 
   function handleStart() {
     const formula = formulas.find(f => f.id === selectedId)
     if (!formula) return
-    onStartQuiz(formula, examContext || 'CAT', autoMix)
+    onStartQuiz(formula, examContext || 'CAT', autoMix, mode)
   }
 
   function renderFolder(folder, depth = 0) {
@@ -57,7 +40,7 @@ export default function FormulaSelector({ folders, formulas, onStartQuiz, loadin
     const folderFormulas = getFormulasForFolder(folder.id)
     const isExpanded = !!expandedFolders[folder.id]
     const hasContent = children.length > 0 || folderFormulas.length > 0
-    const examCtx = getRootExamContext(folder)
+    const examCtx = getRootExamContext(folder, folders)
     const dotColor = getDotColor(examCtx)
 
     return (
@@ -143,6 +126,25 @@ export default function FormulaSelector({ folders, formulas, onStartQuiz, loadin
         <div className={styles.controls}>
           <div className={styles.selectedLabel}>
             <span className={styles.selectedName}>{selected.title}</span>
+          </div>
+
+          <div className={styles.field}>
+            <label className={styles.fieldLabel}>Mode</label>
+            <div className={styles.modeRow}>
+              <button
+                className={`${styles.modeBtn} ${mode === 'quick' ? styles.modeBtnActive : ''}`}
+                onClick={() => setMode('quick')}
+              >Quick Quiz</button>
+              <button
+                className={`${styles.modeBtn} ${mode === 'pyq' ? styles.modeBtnActive : ''}`}
+                onClick={() => setMode('pyq')}
+              >PYQ Mode</button>
+            </div>
+            {mode === 'pyq' && (
+              <span style={{ fontSize: '9px', color: 'var(--text-muted)', marginTop: '2px', fontStyle: 'italic' }}>
+                *Questions are scraped from the web and may not be guaranteed official PYQs.
+              </span>
+            )}
           </div>
 
           <div className={styles.field}>

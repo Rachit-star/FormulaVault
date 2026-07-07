@@ -3,21 +3,9 @@
 import { useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { motion, AnimatePresence } from 'framer-motion'
+import { getDotColor } from '@/lib/constants'
+import { getChildren as getChildFolders, getRootExamContext } from '@/lib/folders'
 import styles from './Sidebar.module.css'
-
-const EXAM_COLORS = {
-  CAT: '#8b7dff',
-  JEE: '#05f2c7',
-  GATE: '#ffd166',
-  GRE: '#ff6b6b',
-  GMAT: '#3a86ff',
-}
-
-function getDotColor(examContext) {
-  if (!examContext) return 'var(--text-muted)'
-  const key = examContext.toUpperCase()
-  return EXAM_COLORS[key] || 'var(--accent)'
-}
 
 export default function Sidebar({ folders, selectedFolder, onSelectFolder, onFoldersChange, userId }) {
   const [newFolderName, setNewFolderName] = useState('')
@@ -38,13 +26,7 @@ export default function Sidebar({ folders, selectedFolder, onSelectFolder, onFol
   const rootFolders = folders.filter(f => f.parent_id === null)
 
   function getChildren(parentId) {
-    return folders.filter(f => f.parent_id === parentId)
-  }
-
-  function getRootExamContext(folder) {
-    if (!folder.parent_id) return folder.exam_context
-    const parent = folders.find(f => f.id === folder.parent_id)
-    return parent ? getRootExamContext(parent) : null
+    return getChildFolders(parentId, folders)
   }
 
   function toggleExpand(id, e) {
@@ -142,7 +124,7 @@ export default function Sidebar({ folders, selectedFolder, onSelectFolder, onFol
     const children = getChildren(folder.id)
     const isSelected = selectedFolder?.id === folder.id
     const isExpanded = !!expanded[folder.id]
-    const examContext = getRootExamContext(folder)
+    const examContext = getRootExamContext(folder, folders)
     const dotColor = getDotColor(examContext)
     const hasChildren = children.length > 0
     const isEditing = editingFolderId === folder.id

@@ -21,21 +21,24 @@ export default function QuizPanel({ quizData, onReset, userId }) {
     const isCorrect = selected === quizData.correct
 
     try {
-      const res = await fetch('http://localhost:8000/quiz/evaluate', {
+      const res = await fetch('/api/arena/evaluate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           question: quizData.question,
           correct_answer: quizData.options[quizData.correct],
           correct_letter: quizData.correct,
-          user_answer: `${selected}) ${userAnswerText}`,
-          formula_title: quizData.formula.title,
-          formula_expression: quizData.formula.expression,
+          user_answer: `${selected}) ${quizData.options[selected]}`,
+          formula: {
+            id: quizData.formula.id,
+            title: quizData.formula.title,
+            expression: quizData.formula.expression,
+          },
           exam_context: quizData.examContext,
         }),
       })
       const json = await res.json()
-      if (json.success) setEvalData(json.data)
+      if (json.success) setEvalData(json.data.eval)
     } catch {
       setEvalData({ verdict: isCorrect ? 'CORRECT' : 'INCORRECT', explanation: 'Could not reach evaluator.', tip: '', better_formula: '' })
     } finally {
@@ -65,6 +68,16 @@ export default function QuizPanel({ quizData, onReset, userId }) {
       <div className={styles.questionSection}>
         <p className={styles.questionLabel}>Question</p>
         <p className={styles.question}>{quizData.question}</p>
+        {quizData.source_label && (
+          <div className={styles.sourceTag}>
+            {quizData.source === 'real' ? '🔍' : '✨'} {quizData.source_label}
+            {quizData.source_url && quizData.source !== 'generated' && (
+              <a href={quizData.source_url} target="_blank" rel="noopener noreferrer" className={styles.sourceLink}>
+                View source
+              </a>
+            )}
+          </div>
+        )}
       </div>
 
       <div className={styles.optionsSection}>

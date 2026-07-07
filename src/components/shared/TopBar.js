@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter, usePathname } from 'next/navigation'
+import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import { BlockMath } from 'react-katex'
 import 'katex/dist/katex.min.css'
@@ -44,30 +45,32 @@ export default function TopBar({ user }) {
     <>
       <div className={styles.topbar}>
         <div className={styles.left}>
-          <div className={styles.logoWrapper} onClick={() => router.push('/vault')}>
+          <Link href="/vault" className={styles.logoWrapper}>
             <span className={styles.logoLogo}>⨫</span>
             <span className={styles.logoText}>FormulaForge</span>
-          </div>
+          </Link>
 
           <nav className={styles.nav}>
-            <button
+            <Link
+              href="/vault"
+              prefetch={true}
               className={`${styles.navLink} ${pathname === '/vault' ? styles.active : ''}`}
-              onClick={() => router.push('/vault')}
             >
               Vault
               {pathname === '/vault' && (
                 <motion.div layoutId="nav-pill" className={styles.activePill} />
               )}
-            </button>
-            <button
+            </Link>
+            <Link
+              href="/arena"
+              prefetch={true}
               className={`${styles.navLink} ${pathname === '/arena' ? styles.active : ''}`}
-              onClick={() => router.push('/arena')}
             >
               Arena
               {pathname === '/arena' && (
                 <motion.div layoutId="nav-pill" className={styles.activePill} />
               )}
-            </button>
+            </Link>
           </nav>
         </div>
 

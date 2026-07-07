@@ -1,9 +1,15 @@
 'use client'
 
+import { memo } from 'react'
 import { BlockMath } from 'react-katex'
 import 'katex/dist/katex.min.css'
 
-export default function LatexRender({ expr }) {
+/**
+ * Memoized LaTeX renderer using KaTeX.
+ * Wrapped in React.memo because KaTeX rendering is expensive
+ * and this component is rendered many times in formula lists.
+ */
+function LatexRender({ expr }) {
   if (!expr) return null
   try {
     return <BlockMath math={expr} />
@@ -16,3 +22,5 @@ export default function LatexRender({ expr }) {
     )
   }
 }
+
+export default memo(LatexRender)

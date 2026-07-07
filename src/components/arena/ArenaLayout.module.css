@@ -1,7 +1,7 @@
 .layout {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: calc(100vh - 54px);
   overflow: hidden;
   background: var(--bg);
 }
@@ -14,7 +14,7 @@
 
 .left {
   width: 280px;
-  border-right: 0.5px solid var(--border);
+  border-right: 1px solid var(--border);
   flex-shrink: 0;
   overflow-y: auto;
   background: var(--bg-card);
@@ -32,11 +32,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .emptyText {
   font-size: 13px;
   color: var(--text-muted);
+  text-align: center;
+  line-height: 1.6;
 }
 
 .loadingState {
@@ -44,16 +48,21 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .loadingText {
   font-size: 13px;
   color: var(--text-muted);
-  font-style: italic;
 }
 
 .error {
   padding: 1rem 2rem;
   font-size: 13px;
   color: var(--danger);
+  background: var(--danger-bg);
+  border-radius: var(--radius-md);
+  margin: 1rem;
+  border: 1px solid rgba(255, 87, 87, 0.15);
 }

@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import TopBar from '@/components/vault/TopBar'
 import FormulaSelector from './FormulaSelector'
 import QuizPanel from './QuizPanel'
 import styles from './ArenaLayout.module.css'
@@ -12,26 +11,36 @@ export default function ArenaLayout({ user, folders, formulas }) {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
-  async function handleStartQuiz(formula, examContext, autoMix) {
+  async function handleStartQuiz(formula, examContext, autoMix, mode = 'quick') {
     setLoading(true)
     setError('')
     setQuizData(null)
 
     try {
-      const res = await fetch('http://localhost:8000/quiz/generate', {
+      const res = await fetch('/api/arena/run', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          formula_title: formula.title,
-          formula_expression: formula.expression,
-          formula_topic: formula.title.toLowerCase(),
+          mode,
+          formula: {
+            id: formula.id,
+            title: formula.title,
+            expression: formula.expression,
+            topic: formula.title.toLowerCase(),
+          },
           exam_context: examContext,
           auto_mix: autoMix,
         }),
       })
       const json = await res.json()
       if (json.success) {
-        setQuizData({ ...json.data, formula, examContext })
+        setQuizData({
+          ...json.data.question,
+          formula,
+          examContext,
+          mode: json.data.mode,
+          source: json.data.source || 'generated',
+        })
         setSelectedFormula(formula)
       } else {
         setError('Failed to generate question. Try again.')
@@ -50,7 +59,6 @@ export default function ArenaLayout({ user, folders, formulas }) {
 
   return (
     <div className={styles.layout}>
-      <TopBar user={user} allFolders={folders} />
       <div className={styles.body}>
         <div className={styles.left}>
           <FormulaSelector

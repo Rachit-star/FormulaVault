@@ -3,7 +3,6 @@
 import { useState } from 'react'
 import Sidebar from './Sidebar'
 import FormulaPanel from './FormulaPanel'
-import TopBar from './TopBar'
 import styles from './VaultLayout.module.css'
 
 export default function VaultLayout({ user, folders }) {
@@ -12,7 +11,6 @@ export default function VaultLayout({ user, folders }) {
 
   return (
     <div className={styles.layout}>
-      <TopBar user={user} />
       <div className={styles.body}>
         <Sidebar
           folders={allFolders}

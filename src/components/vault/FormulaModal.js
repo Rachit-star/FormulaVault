@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
-import LatexRender from './LatexRender'
+import LatexRender from '@/components/shared/LatexRender'
 import styles from './FormulaModal.module.css'
 
 export default function FormulaModal({ folder, userId, onClose, onSave, onDelete, existingFormula }) {

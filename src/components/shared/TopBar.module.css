@@ -1,10 +1,10 @@
 .topbar {
-  height: 56px;
+  height: 54px;
   border-bottom: 1px solid var(--border);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 24px;
+  padding: 0 20px;
   flex-shrink: 0;
   background: var(--bg-card);
   backdrop-filter: var(--glass-backdrop);
@@ -14,7 +14,7 @@
 .left {
   display: flex;
   align-items: center;
-  gap: 32px;
+  gap: 28px;
 }
 
 .logoWrapper {
@@ -22,40 +22,47 @@
   align-items: center;
   gap: 8px;
   cursor: pointer;
+  transition: opacity var(--transition);
+}
+
+.logoWrapper:hover {
+  opacity: 0.85;
 }
 
 .logoLogo {
-  font-size: 20px;
+  font-size: 18px;
   color: var(--accent);
   font-weight: 800;
 }
 
 .logoText {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 800;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
   color: var(--text-primary);
 }
 
 .nav {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 4px;
   position: relative;
 }
 
 .navLink {
-  font-size: 13.5px;
+  font-size: 13px;
   font-weight: 600;
-  color: var(--text-secondary);
+  color: var(--text-muted);
   cursor: pointer;
   padding: 6px 14px;
+  border-radius: var(--radius-md);
   position: relative;
-  transition: color 0.2s ease;
+  transition: all var(--transition);
 }
 
 .navLink:hover {
-  color: var(--text-primary);
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.03);
 }
 
 .navLink.active {
@@ -64,17 +71,18 @@
 
 .activePill {
   position: absolute;
-  bottom: -15px;
-  left: 0;
-  right: 0;
+  bottom: -14px;
+  left: 14px;
+  right: 14px;
   height: 2px;
   background: var(--accent);
+  border-radius: 1px;
 }
 
 .right {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
 }
 
 .randomBtn {
@@ -85,21 +93,22 @@
   height: 32px;
   border: 1px solid var(--border);
   color: var(--text-secondary);
-  background: var(--bg-input);
-  font-size: 12.5px;
+  background: transparent;
+  font-size: 12px;
   font-weight: 600;
-  border-radius: 20px;
-  transition: all 0.2s ease;
+  border-radius: var(--radius-xl);
+  transition: all var(--transition);
 }
 
 .randomBtn:hover:not(:disabled) {
   border-color: var(--accent);
   color: var(--text-primary);
+  background: var(--accent-subtle);
 }
 
 .randomIcon {
   font-size: 14px;
-  transition: transform 0.3s ease;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .randomBtn:hover .randomIcon {
@@ -107,38 +116,38 @@
 }
 
 .loading {
-  opacity: 0.6;
+  opacity: 0.5;
   cursor: not-allowed;
 }
 
 .userSection {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   border-left: 1px solid var(--border);
-  padding-left: 16px;
+  padding-left: 12px;
 }
 
 .avatar {
-  width: 30px;
-  height: 30px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   background: var(--accent-subtle);
-  border: 1px solid var(--border);
+  border: 1px solid rgba(108, 92, 231, 0.3);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
   color: var(--accent);
 }
 
 .signOutBtn {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 500;
-  color: var(--text-secondary);
+  color: var(--text-muted);
   cursor: pointer;
-  transition: color 0.15s ease;
+  transition: color var(--transition);
 }
 
 .signOutBtn:hover {
@@ -152,8 +161,8 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(3, 3, 6, 0.75);
-  backdrop-filter: blur(10px);
+  background: rgba(5, 5, 10, 0.8);
+  backdrop-filter: blur(16px);
   z-index: 1000;
   display: flex;
   align-items: center;
@@ -164,14 +173,14 @@
 .modalContent {
   background: var(--bg-elevated);
   border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: 30px;
-  max-width: 500px;
+  border-radius: var(--radius-xl);
+  padding: 28px;
+  max-width: 480px;
   width: 100%;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-lg), 0 0 80px rgba(108, 92, 231, 0.08);
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 18px;
 }
 
 .modalHeader {
@@ -183,35 +192,43 @@
 }
 
 .modalSubtitle {
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   color: var(--accent);
 }
 
 .closeBtn {
-  font-size: 24px;
+  font-size: 22px;
   color: var(--text-muted);
   cursor: pointer;
   line-height: 1;
-  transition: color 0.2s ease;
+  transition: color var(--transition);
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
 }
 
 .closeBtn:hover {
   color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .modalTitle {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 700;
   color: var(--text-primary);
+  letter-spacing: -0.01em;
 }
 
 .mathContainer {
-  background: rgba(0, 0, 0, 0.2);
-  border: 1px solid var(--border-subtle);
-  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
   padding: 24px;
   display: flex;
   align-items: center;
@@ -226,15 +243,15 @@
 }
 
 .sectionLabel {
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   color: var(--text-muted);
 }
 
 .modalDesc {
-  font-size: 14px;
+  font-size: 13.5px;
   color: var(--text-secondary);
   line-height: 1.6;
 }
@@ -243,9 +260,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 10px;
+  margin-top: 6px;
   border-top: 1px solid var(--border);
-  padding-top: 16px;
+  padding-top: 14px;
 }
 
 .confidenceInfo {
@@ -255,11 +272,11 @@
 }
 
 .badge {
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 700;
   text-transform: uppercase;
   padding: 3px 10px;
-  border-radius: 20px;
+  border-radius: var(--radius-xl);
   letter-spacing: 0.05em;
 }
 
@@ -274,13 +291,13 @@
 }
 
 .fresh {
-  background: var(--border);
-  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-muted);
 }
 
 .modalActions {
   display: flex;
-  gap: 12px;
+  gap: 10px;
 }
 
 .primaryBtn {
@@ -289,12 +306,13 @@
   font-size: 13px;
   font-weight: 600;
   padding: 8px 18px;
-  border-radius: 8px;
-  transition: all 0.2s ease;
+  border-radius: var(--radius-md);
+  transition: all var(--transition);
 }
 
 .primaryBtn:hover {
   background: var(--accent-hover);
+  box-shadow: 0 4px 16px var(--accent-glow);
 }
 
 .secondaryBtn {
@@ -304,11 +322,12 @@
   font-size: 13px;
   font-weight: 500;
   padding: 8px 14px;
-  border-radius: 8px;
-  transition: all 0.2s ease;
+  border-radius: var(--radius-md);
+  transition: all var(--transition);
 }
 
 .secondaryBtn:hover {
   background: rgba(255, 255, 255, 0.04);
   color: var(--text-primary);
+  border-color: var(--border-active);
 }

@@ -2,21 +2,9 @@
 
 import { useState, useEffect, useCallback } from 'react'
 import { createClient } from '@/lib/supabase/client'
-import LatexRender from './LatexRender'
+import { buildPath } from '@/lib/folders'
+import LatexRender from '@/components/shared/LatexRender'
 import styles from './RandomFormulaModal.module.css'
-
-function buildPath(folder, allFolders) {
-    if (!folder) return ''
-    const parts = [folder.name]
-    let current = folder
-    while (current.parent_id) {
-        const parent = allFolders.find(f => f.id === current.parent_id)
-        if (!parent) break
-        parts.unshift(parent.name)
-        current = parent
-    }
-    return parts.join(' / ')
-}
 
 export default function RandomFormulaModal({ userId, allFolders, onClose }) {
     const [allFormulas, setAllFormulas] = useState([])

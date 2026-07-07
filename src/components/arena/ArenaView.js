@@ -3,8 +3,9 @@
 import { useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { motion, AnimatePresence } from 'framer-motion'
-import LatexRender from '@/components/vault/LatexRender'
-import TopBar from '@/components/vault/TopBar'
+import LatexRender from '@/components/shared/LatexRender'
+import TopBar from '@/components/shared/TopBar'
+import { getFolderFormulasRecursive } from '@/lib/folders'
 import styles from './ArenaView.module.css'
 
 export default function ArenaView({ user, folders, initialFormulas }) {
@@ -22,15 +23,7 @@ export default function ArenaView({ user, folders, initialFormulas }) {
 
   const supabase = createClient()
 
-  // Find formulas inside a folder and its subfolders recursively
-  function getFolderFormulasRecursive(folderId, allFolders, allFormulas) {
-    let result = allFormulas.filter(f => f.folder_id === folderId)
-    const childFolders = allFolders.filter(f => f.parent_id === folderId)
-    for (const child of childFolders) {
-      result = [...result, ...getFolderFormulasRecursive(child.id, allFolders, allFormulas)]
-    }
-    return result
-  }
+  // getFolderFormulasRecursive imported from @/lib/folders
 
   // Handle building the deck
   function handleStartDrill() {
