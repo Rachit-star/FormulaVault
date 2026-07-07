@@ -70,7 +70,7 @@ export default function QuizPanel({ quizData, onReset, userId }) {
         <p className={styles.question}>{quizData.question}</p>
         {quizData.source_label && (
           <div className={styles.sourceTag}>
-            {quizData.source === 'real' ? '🔍' : '✨'} {quizData.source_label}
+            {quizData.source_label}
             {quizData.source_url && quizData.source !== 'generated' && (
               <a href={quizData.source_url} target="_blank" rel="noopener noreferrer" className={styles.sourceLink}>
                 View source
@@ -122,7 +122,7 @@ export default function QuizPanel({ quizData, onReset, userId }) {
       {submitted && evalData && (
         <div className={styles.evalSection}>
           <div className={`${styles.verdict} ${isCorrect ? styles.verdictCorrect : styles.verdictWrong}`}>
-            {isCorrect ? '✓ Correct' : '✗ Incorrect'}
+            {isCorrect ? 'Correct' : 'Incorrect'}
           </div>
 
           {evalData.explanation && (
