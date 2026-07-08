@@ -1,9 +1,11 @@
 .panel {
-  padding: 2.5rem 3rem;
+  padding: 3rem 2rem;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
-  max-width: 700px;
+  gap: 2.5rem;
+  max-width: 840px;
+  width: 100%;
+  margin: 0 auto;
 }
 
 .questionSection {
