@@ -17,7 +17,7 @@ export default function ArenaLayout({ user, folders, formulas }) {
     setQuizData(null)
 
     try {
-      const res = await fetch('/api/arena/run', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/arena/run`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

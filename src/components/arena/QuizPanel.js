@@ -21,7 +21,7 @@ export default function QuizPanel({ quizData, onReset, userId }) {
     const isCorrect = selected === quizData.correct
 
     try {
-      const res = await fetch('/api/arena/evaluate', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/arena/evaluate`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
